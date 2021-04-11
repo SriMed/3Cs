@@ -1,0 +1,7 @@
+Single Dtree: 0.8577190504921421
+	Feature Designation: 0.011364443193417187
+	Feature Resource Allocation: 0.10419556458189166
+	Feature Mental Fatigue Score: 0.8844399922246912
+Random Forest Dtrees: 0.8596561939895004
+Extremely Randomized Dtrees: 0.8582998683698139
+Gradient Boosting Dtrees: 0.8601636841887772
