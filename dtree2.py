@@ -6,18 +6,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.ensemble import ExtraTreesRegressor
 from sklearn.ensemble import GradientBoostingRegressor
-import random
 
 def read_dataset(filename, feature_cols):
     df = pd.read_csv(filename)
     df.fillna(df.mean(), inplace=True)
-
-    X = df.loc[:, feature_cols]
-    print(X.shape)
-    y = df['Burn Rate']
-    print(y.shape)
-
-    return X,y
+    df = df.loc[:, feature_cols]
+    return df
 
 def dtrees(X_fit, y_fit, X_eval, y_eval, features, dt_file):
     #DTrees
@@ -45,28 +39,49 @@ def dtrees(X_fit, y_fit, X_eval, y_eval, features, dt_file):
     accuracy = gb_tree.score(X_eval, y_eval)
     dt_file.write(f'Gradient Boosting Dtrees: {accuracy}')
 
-# features = ['Date of Joining', 'Gender', 'Company Type', 'WFH Setup Available', 'Designation', 'Resource Allocation', 'Mental Fatigue Score']
-
 def runtime():
-    parser = argparse.ArgumentParser(
-        description='Fit & Score Dtree Regressors')
-    parser.add_argument('-f', '--features', nargs='+', default=['Designation', 'Resource Allocation', 'Mental Fatigue Score'],
-                        help='the features to include')
-    # parser.add_argument('-cf', '--cat_features', nargs='+',
-    #                     default=['Gender', 'Company Type', 'WFH Setup Available'],
-    #                     help='the features to include')
+    parser = argparse.ArgumentParser(description='Fit & Score Dtree Regressors')
+    parser.add_argument('-dcf', '--domestic_coffee_features', nargs='+', default=['domestic_consumption', '2018'],
+                        help='the features from domestic coffee production to include')
+    parser.add_argument('-icf', '--import_coffee_features', nargs='+', default=['imports', '2018'],
+                        help='the features from foreign coffee import to include')
+    parser.add_argument('-cf', '--covid_features', nargs='+', default=['Country', 'Positive/Tested %'],
+                        help='the features from foreign coffee import to include')
+    parser.add_argument('-hf', '--cheer_features', nargs='+', default=['Country', 'Score'],
+                        help='the features from foreign coffee import to include')
+    parser.add_argument('-tf', '--total_features', nargs='+', default=['Coffee Consumption', 'Positive/Tested %'],
+                        help='total features')
     parser.add_argument('-ofn', '--outputfilename', default="output2")
 
     args = parser.parse_args()
 
-    features = args.features
-    # cat_features = args.cat_features
+    dcf = args.domestic_coffee_features
+    icf = args.import_coffee_features
+    cf = args.covid_features
+    hf = args.cheer_features
 
-    X_fit, y_fit = read_dataset('train.csv', features)
-    X_fit, X_eval, y_fit, y_eval = train_test_split(X_fit, y_fit, test_size=0.30, random_state=2)
+    dcf_dataset = read_dataset('domestic-consumption.csv', dcf)
+    dcf_dataset = dcf_dataset.rename(columns={"domestic_consumption": "Country", "2018": "Coffee Consumption"})
+    icf_dataset = read_dataset('imports.csv', icf)
+    icf_dataset = icf_dataset.rename(columns={"imports": "Country", "2018": "Coffee Consumption"})
+    cf_dataset = read_dataset('TestsConducted_AllDates_13July2020.csv', cf)
+    cf_dataset = cf_dataset.drop_duplicates(keep='last', ignore_index=True, subset=['Country'])
+    hf_dataset = read_dataset('WorldHappiness2018_Data.csv', hf)
 
+    full_dataset = dcf_dataset.append(icf_dataset, ignore_index=True)
+    full_dataset = full_dataset.sort_values(by=['Country'])
+    full_dataset = pd.merge(left=full_dataset, right=cf_dataset, left_on='Country', right_on='Country')
+    full_dataset = pd.merge(left=full_dataset, right=hf_dataset, left_on='Country', right_on='Country')
+    # full_dataset = pd.concat([full_dataset, cf_dataset, hf_dataset])
+    # print(full_dataset)
+
+    features = args.total_features
+
+    X = full_dataset[features]
+    y = full_dataset['Score']
+
+    X_fit, X_eval, y_fit, y_eval = train_test_split(X, y, test_size=0.30, random_state=2)
     dt_file = open(args.outputfilename + '.txt', 'w')
-
     dtrees(X_fit, y_fit, X_eval, y_eval, features, dt_file)
 
 runtime()
