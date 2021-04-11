@@ -47,11 +47,13 @@ def runtime():
                         help='the features from foreign coffee import to include')
     parser.add_argument('-cf', '--covid_features', nargs='+', default=['Country', 'Positive/Tested %'],
                         help='the COVID-19 infection rates by country')
-    parser.add_argument('-hf', '--cheer_features', nargs='+', default=['Country', 'Score'],
+    # parser.add_argument('-hf', '--cheer_features', nargs='+', default=['Country', 'Score'],
+    #                     help='happiness by country')
+    parser.add_argument('-hf', '--cheer_features', nargs='+', default=['Country name', 'Ladder score'],
                         help='happiness by country')
     parser.add_argument('-tf', '--total_features', nargs='+', default=['Coffee Consumption', 'Positive/Tested %'],
                         help='total list of features')
-    parser.add_argument('-ofn', '--outputfilename', default="output2")
+    parser.add_argument('-ofn', '--outputfilename', default="output3")
 
     args = parser.parse_args()
 
@@ -66,7 +68,9 @@ def runtime():
     icf_dataset = icf_dataset.rename(columns={"imports": "Country", "2018": "Coffee Consumption"})
     cf_dataset = read_dataset('TestsConducted_AllDates_13July2020.csv', cf)
     cf_dataset = cf_dataset.drop_duplicates(keep='last', ignore_index=True, subset=['Country'])
-    hf_dataset = read_dataset('WorldHappiness2018_Data.csv', hf)
+    # hf_dataset = read_dataset('WorldHappiness2018_Data.csv', hf)
+    hf_dataset = read_dataset('world-happiness-report-2021.csv', hf)
+    hf_dataset = hf_dataset.rename(columns={"Country name": "Country", "Ladder score": "Score"})
 
     full_dataset = dcf_dataset.append(icf_dataset, ignore_index=True)
     full_dataset = full_dataset.sort_values(by=['Country'])
