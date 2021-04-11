@@ -1,6 +1,6 @@
-Single Dtree: -0.6673632575757995
-	Feature Coffee Consumption: 0.39252806326479095
-	Feature Positive/Tested %: 0.607471936735209
-Random Forest Dtrees: -0.30926447128260426
-Extremely Randomized Dtrees: 0.14173141473533601
+Single Dtree: -0.3482815746795227
+	Feature Coffee Consumption: 0.3428530282988041
+	Feature Positive/Tested %: 0.657146971701196
+Random Forest Dtrees: -0.07743038882044617
+Extremely Randomized Dtrees: -0.12196983776073034
 Gradient Boosting Dtrees: 0.055391439235641715

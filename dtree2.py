@@ -46,11 +46,11 @@ def runtime():
     parser.add_argument('-icf', '--import_coffee_features', nargs='+', default=['imports', '2018'],
                         help='the features from foreign coffee import to include')
     parser.add_argument('-cf', '--covid_features', nargs='+', default=['Country', 'Positive/Tested %'],
-                        help='the features from foreign coffee import to include')
+                        help='the COVID-19 infection rates by country')
     parser.add_argument('-hf', '--cheer_features', nargs='+', default=['Country', 'Score'],
-                        help='the features from foreign coffee import to include')
+                        help='happiness by country')
     parser.add_argument('-tf', '--total_features', nargs='+', default=['Coffee Consumption', 'Positive/Tested %'],
-                        help='total features')
+                        help='total list of features')
     parser.add_argument('-ofn', '--outputfilename', default="output2")
 
     args = parser.parse_args()
@@ -74,6 +74,7 @@ def runtime():
     full_dataset = pd.merge(left=full_dataset, right=hf_dataset, left_on='Country', right_on='Country')
     # full_dataset = pd.concat([full_dataset, cf_dataset, hf_dataset])
     # print(full_dataset)
+    pickle.dump(full_dataset, open('full_dataset.p', 'wb'))
 
     features = args.total_features
 

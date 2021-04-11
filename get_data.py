@@ -1,25 +1,18 @@
 import pandas as pd
 import json
+import pickle
 
-df = pd.read_csv("train.csv")
-df.fillna(df.mean(), inplace=True)
-df = df.sample(n=200)
+df = pickle.load(open('full_dataset.p', 'rb'))
 
 data_dict = {}
+fatigue = list(df["Coffee Consumption"])
+data_dict["Coffee Consumption"] = fatigue
 
+Designation = list(df["Positive/Tested %"])
+data_dict["Positive/Tested %"] = Designation
 
-
-fatigue = list(df["Mental Fatigue Score"])
-data_dict["Mental_Fatigue_Score"] = fatigue
-
-Designation = list(df["Designation"])
-data_dict["Designation"] = Designation
-
-resource = list(df["Resource Allocation"])
-data_dict["Resource_Allocation"] = resource
-
-burn = list(df["Burn Rate"])
-data_dict["Burn_Rate"] = burn
+burn = list(df["Score"])
+data_dict["Score"] = burn
 
 with open('data.json', 'w', encoding='utf-8') as f:
     json.dump(data_dict, f, ensure_ascii=False, indent=4)
