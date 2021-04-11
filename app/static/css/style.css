@@ -1,12 +1,12 @@
 body {
   font-family: Helvetica, Arial, sans-serif;
-  position: middle
-  max-width: 700px;
-  margin-left: 250px;
-  margin-right: 250px;
-  margin-top: 50px;
-  -webkit-font-smoothing: antialiased;  
+  position:middle;
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-bottom: 200px;
+  -webkit-font-smoothing: antialiased;
   line-height: 1.5;
+  background: #fbd2cb;
 }
 
 @media (max-width: 460px) {
@@ -19,36 +19,37 @@ body {
     padding-right: 14px !important;
   }
   .glitchButton img {
-    width:20px;
+    width: 20px;
   }
   h1 {
     font-size: 1.8em;
   }
 }
 
-a:link, a:visited {
+a:link,
+a:visited {
   text-decoration: none;
   color: black;
-  border-bottom: 2px solid #FC766AFF;
+  border-bottom: 2px solid #d60000;
 }
 
-h1, h2 {
-  font-family: 'IBM Plex Mono', serif;
-  color: #FC766AFF;
+h1,
+h2 {
+  font-family: "IBM Plex Mono", serif;
+  color: #d60000;
 }
 
-ul, ol {
+ul,
+ol {
   padding-left: 40px;
 }
 
-li {
-  margin-bottom: 10px
+b{
+  color:#8B6E66
 }
 
-canvas{
-  font-family: 'IBM Plex Mono', serif;
-  color: #FC766AFF;
-  font-size: 12px;
+li {
+  margin-bottom: 10px;
 }
 
 code {
@@ -56,13 +57,13 @@ code {
   margin: 0 2px;
   white-space: nowrap;
   background-color: #f8f8f8;
-  color: #E9163;
+  color: #E91E63;
   border-radius: 3px;
   font-size: 16px;
 }
 
 .formula code {
-  background: transparent; 
+  background: transparent;
   color: black;
   white-space: normal;
 }
@@ -86,7 +87,7 @@ input {
   box-sizing: border-box;
   letter-spacing: 1px;
   border: 0;
-  border-bottom: 2px solid #5B84B1FF;
+  border-bottom: 2px solid #F8B3A3;
   width: 80px;
   margin-right: 14px;
 }
@@ -97,7 +98,7 @@ input {
 }
 
 button {
-  background: #5B84B1FF;
+  background: #F8B3A3;
   color: white;
   font-size: 1em;
   text-transform: uppercase;
@@ -112,6 +113,7 @@ button {
 
 .footer {
   position: relative;
+  margin-top: 60px;
   font-size: 14px;
 }
 .footer::after {
@@ -120,7 +122,8 @@ button {
   width: 40px;
   height: 6px;
   bottom: 30px;
-  border-bottom: 6px solid #5B84B1FF;
+  left: 0;
+  border-bottom: 6px solid #F8B3A3;
 }
 
 .settings {
@@ -128,10 +131,5 @@ button {
   margin: 0 2px;
   background-color: #f8f8f8;
   border-radius: 3px;
-  border: 1px solid #EEEEEE;
-}
-
-.centerThis{
-  margin:auto;
-  
+  border: 1px solid #F8B3A3;
 }

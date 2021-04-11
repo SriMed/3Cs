@@ -2,13 +2,10 @@ var express = require("express");
 var request = require("request");
 var path = require("path");
 var hbs = require("hbs");
-var cookieParser = require("cookie-parser");
 var child_process = require("child_process");
 var fs = require("fs");
 var Chart = require("chart.js");
 
-// import tf from '@tensorflow/tfjs';
-// import Plotly from 'plotly.js';
 
 var app = express();
 // 
@@ -20,9 +17,7 @@ app.set("port", process.env.PORT || 8080);
 // tell express that the view engine is hbs
 app.set("view engine", "hbs");
 hbs.registerPartials(__dirname + "/views/partials");
-
-app.use(cookieParser("f92nfl29dfjl23t"));
-app.use(express.static(__dirname + "/static"));
+app.use(express.static(__dirname + '/static'));
 
 //express 'get' handles inside
 routes.doSet(app);

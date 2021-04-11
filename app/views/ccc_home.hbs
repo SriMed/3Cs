@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>3 C's</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.10.0"> </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link  href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" 
+      type="image/png" 
+      href="https://cdn.glitch.com/7ed49f2a-f8a6-4044-b214-31563f71991b%2FScreen%20Shot%202021-04-10%20at%2010.03.02%20PM.png?v=1618106954396"
+    />
+  </head>  
+  <body>
+    <img src="https://cdn.glitch.com/7ed49f2a-f8a6-4044-b214-31563f71991b%2FScreen%20Shot%202021-04-10%20at%2010.03.02%20PM.png?v=1618106954396" style="margin-left:600px; margin-right:600px;height:200px"></img>
+
+    <header><h1>3 C's</h1></header>
+    
+    <p>
+      <h2>COFFEE COVID CHEER</h2> 
+      As the novel coronavirus sweeps the globe, countries around the globe watch as COVID-19 cases and coffee consumption influence their happiness rankings. 
+    </p>
+    
+    <h2>What inspired 3 C's?</h2>
+    
+      <p>
+        A <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><b>2023 TJHSST study*</b></a> found astounding correlations between coffee consumption, COVID-19 cases, and happiness levels for countries around the globe on planet Earth. 
+        <ul>
+          <li>Those who drink coffee are 13% less likely to transmit COVID-19 to others. </li>
+          <li>Having COVID-19 makes one half as likely to discuss happiness with others.</li>
+          <li>Living near a coffee shop makes an individual 2.6 times as likely to accidentally leave their mask in their car. </li>
+          <li>63% of coffee drinkers happily drink caramel macchiatos.</li>
+          <li>Dr. Fauci is experimenting with coffee beans in the production of his next happiness vaccine. </li>
+          
+          
+        </ul>
+      </p>
+  
+   <h2>What does 3 C's do?</h2>
+    <p>3 C's is a website that connects COVID-19, coffee, and cheerfulness. Using machine learning techniques, we find a correlation between 
+        <ul>
+          <li>the amount of coffee consumed by a country</li>
+          <li>the prevalance of COVID-19 in a country</li>
+          <li>& happiness rankings in a country.</li>
+          
+          
+        </ul>
+    </p>
+    
+         
+    <h2 id="demo">Estimate a Country's Happiness Ranking</h2>
+      <p>
+        <!--change this later!--->
+      With scikit-learn’s DecisionTreeRegressor, our project predicts a country's "cheer" (happiness) on a scale from 2.9-7.63 given two features: 
+        coffee consumption (in thousand 60-kg bags), 
+        positive COVID tests/total COVID Tests %
+      The output prediction is presented on our website along 
+      with a graph plotting mental fatigue score vs. burn rate. </p>
+
+    <div class="settings" id="demo-content">
+      
+      <div class="input-container formula">
+        <b id="centerThis">Coffee Consumption: </b> <input name = "input_coffee" type="number"> <br> <br>    
+        <b id="centerThis">Positive COVID Tests/Total COVID Tests %: </b> <input name  = "input_pt" type="number"><br><br>
+      </div> 
+      <br>
+      
+      <center><button  onclick="submit_input()">Calculate Cheer</button></center>
+    </div>
+  
+    <br>
+     <div class="settings" id="demo-content">      
+      <div class="input-container formula">
+        <b id="predictedHappiness">Predicted happiness (2.9-7.63): </b>
+      </div>
+    </div>
+   
+    
+    <h2>Graph</h2>
+      <img src="https://cdn.glitch.com/7ed49f2a-f8a6-4044-b214-31563f71991b%2Fchart.png?v=1618118154305" style="width:800px"</img>
+    
+    <h2>How does this work?</h2>
+  <!--change this later!--->
+      <p>
+        We used <a href=https://www.kaggle.com/yamaerenay/ico-coffee-dataset-worldwide?select=domestic-consumption.csv><b>ICO's Coffee Dataset</b></a>, 
+        which contains data collected about the consumption of coffee in thousand 60 kilogram bags per country. 
+        We also used <a href=https://www.kaggle.com/skylord/covid19-tests-conducted-by-country><b>OurWorldInData's COVID-19 dataset</b> </a> for the number of positive COVID-19 cases per country.
+        Lastly, we used <a href=https://www.kaggle.com/ajaypalsinghlo/world-happiness-report-2021?fbclid=IwAR3I5qZ6f7-1FSrkhapd5CcN-Va_iN80KIjlW9oyn8-d3u0z04GYJV1PFzU&select=world-happiness-report-2021.csv><b>World Happiness Report 2021</b></a> and
+        <a href=https://www.kaggle.com/njlow1202/world-happiness-report-data-2018><b>the World Happiness Report 2018</b> </a>for information about how each country scores in keeping its citizens happy
+        Take a look at what happens behind-the-screen:
+
+        <ol>
+          <li>We treat this data as our training data, and use it train a decision tree regressor, a type of machine learning algorithm.
+            Check out more about Scikit-learn's awesome <a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor"> decision tree regressors.</a></li>
+          <li>Next, we read in the user's two input parameters: Coffee Consumption, Positive/Tested % (i.e. percent of total tests which are positive for COVID-19) </li>
+          <li>Then to generate a prediction of this country's happiness, we put these inputs into the decision tree, which hands us back its best prediction. </li>
+          <li>And all that's left is to display the result to the webpage!</li>
+        </ol>
+      </p>
+
+    <h2>The code</h2>
+    <p>You can learn more about our project and take a closer look at the code <a href="https://github.com/SriMed/3Cs">here on GitHub</a>.</p>
+
+    <script src="https://button.glitch.me/button.js"></script>
+    <script type="text/javascript" src="client-js/home.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+
+      
+    <h2>made with <i class="icon fa fa-heart"></i></h2>
+    <p>Khushmeet Chandi and Srilakshmi Medarametla</p>
+   <br>   <br>
+   <br>
+   <br>
+
+
+    <h2><i class="icon fa fa-warning"></i>Although the computer science aspect of this webpage was created and programmed with utmost care and skill, the overall intent of this website is humorous<i class="icon fa fa-warning"></i></h2>
+
+    <br>
+  </body>
+</html>

@@ -1,8 +1,8 @@
-var burn = require("./burn");
+var ccc = require("./ccc");
 
 exports.doSet = function(app) {
   //-------express 'get' handlers
-  app.get("/", burn.burn_home);
-  app.get("/predict", burn.render_prediction);
+  app.get("/", ccc.ccc_home);
+  app.get("/predict", ccc.render_prediction);
 };
 
