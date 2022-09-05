@@ -12,6 +12,6 @@ Srilakshmi Medarametla, Khushmeet Chandi
 
 # Links
 
-https://devpost.com/software/3cs
+Submitted to [HackTJ 8.0](https://devpost.com/software/3cs)
 
 
